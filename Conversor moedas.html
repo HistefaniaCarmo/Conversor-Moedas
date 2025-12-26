@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Conversor de Moedas</title>
+  <style>
+    @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap');
+
+    * {
+      margin: 0;
+      padding: 0;
+      box-sizing: border-box;
+      font-family: 'Poppins', sans-serif;
+    }
+
+    body {
+      height: 100vh;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      flex-direction: column;
+      color: #fff;
+      background: transparent;
+      text-align: center;
+    }
+
+    h1 {
+      font-family: comic sans ms;
+      font-size: 2rem;
+      color: #ffffff;
+      text-shadow: 0 0 15px #cbfeb4;
+      margin-bottom: 25px;
+    }
+
+    .container {
+      background: rgba(0, 0, 0, 0.1);
+      padding: 40px;
+      border-radius: 16px;
+      backdrop-filter: blur(10px);
+      width: 325px;
+      transition: 0.3s;
+    }
+	    .container:hover {
+      box-shadow: 0 0 40px rgba(180, 254, 183, 0.4);
+    }
+
+    input {
+      background: rgba(255, 255, 255, 0.15);
+      border: none;
+      border-radius: 8px;
+      color: #fff;
+      padding: 10px;
+      width: 100%;
+      margin-bottom: 15px;
+      text-align: center;
+      outline: none;
+      font-size: 14px;
+      transition: 0.3s;
+    }
+/* Chrome, Edge, Safari */ 
+input[type=number]::-webkit-inner-spin-button, 
+input[type=number]::-webkit-outer-spin-button { 
+  -webkit-appearance: none; margin: 0; 
+}
+    
+    input:focus {
+    box-shadow: 0 0 15px #bffeb4;
+    }
+    input::placeholder {
+      color: #ccc;
+    }
+
+    button {
+      width: 100%;
+      padding: 10px;
+      background: #86efad7c;
+      color: #fff;
+      border: 1px solid #86efac60;
+      border-radius: 8px;
+      font-size: 15px;
+      cursor: pointer;
+      transition: 0.3s;
+    }
+
+    button:hover {
+      background: #86efac40;
+      box-shadow: 0 0 25px #b4feb7;
+      transform: scale(1);
+    }
+
+    .resultado {
+      margin-top: 20px;
+      font-weight: 500;
+      color: #dcfce7;
+      text-align: left;
+    }
+
+    .fundo {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      object-fit: cover;
+    }
+  </style>
+</head>
+<body>
+      <div class="fundo">
+        <video autoplay muted loop style="width: 100%; height: 100%; object-fit: cover;">
+      <source src="fundo.mp4" type="video/mp4">
+        </video>
+      </div>
+
+  <h1>Conversor de Moedas</h1>
+  <div class="container">
+    <input type="number" id="cotacao" placeholder="Cotação do dólar (R$)" step="0.01" />
+    <input type="number" id="valor" placeholder="Quanto você tem (R$)" step="0.01" />
+    <button onclick="converter()">Converter</button>
+    <div class="resultado" id="saida"></div>
+  </div>
+
+  <script>
+    function converter() {
+      const cotacao = parseFloat(document.getElementById('cotacao').value);
+      const valor = parseFloat(document.getElementById('valor').value);
+      const res = document.getElementById('saida');
+
+      if (isNaN(cotacao) || isNaN(valor)) {
+        res.innerHTML = 'Digite valores válidos!';
+        return;
+      }
+
+      const dolar = (valor / cotacao).toFixed(2);
+      res.innerHTML = `
+        <p><strong>Conversão:</strong></p>
+        <p>Com R$ ${valor.toFixed(2)}, você pode comprar <strong>US$ ${dolar}</strong></p>
+        <p>(Cotação informada: R$ ${cotacao.toFixed(2)})</p>
+      `;
+    }
+  </script>
+</body>
+</html>
